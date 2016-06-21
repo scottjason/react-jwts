@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Login from '../components/Login'
 import styles from '../main.styl'
 
 export default class App extends React.Component {
@@ -8,6 +9,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={styles.app}>
+        <Login />
       </div>
     )
   }
