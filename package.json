@@ -1,5 +1,5 @@
 {
-  "name": "holy-grail",
+  "name": "react-redux-authentication",
   "version": "0.0.0",
   "description": "React, Redux boilerplate with JWT auth and flexbox holy grail layout",
   "main": "index.js",
@@ -7,17 +7,23 @@
   "license": "ISC",
   "scripts": {
     "preinstall": "rm -rf ~/.npm && npm cache clear",
-    "start": "node server.js"
+    "start": "node ./server/app.js"
   },
   "dependencies": {
+    "async": "^1.5.2",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "browser-request": "^0.3.3",
     "express": "^4.13.4",
+    "mongoose": "^4.5.1",
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
     "react-addons-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "validator": "^5.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
