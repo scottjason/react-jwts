@@ -1,6 +1,8 @@
 const User = require('../models/user')
 const async = require('async')
 const bcrypt = require('bcrypt-nodejs')
+const jwt = require('jsonwebtoken')
+const secret = process.env.jwtSecret || require('../../env').jwtSecret
 
 function comparePassword(entered, existing, cb) {
   bcrypt.compare(entered, existing, (err, isMatch) => { cb(err, isMatch) })
@@ -29,7 +31,9 @@ function login(req, res, next) {
       }
     },
   ], (err, user) => {
+    user = user.toJSON()
     delete user.password
+    user.token = jwt.sign(user, secret, { expiresIn: '12h' })
     res.status(200).send({ user: user })
   })
 }
@@ -47,7 +51,9 @@ function signup(req, res, next) {
       user.save(cb)
     },
   ], (err, user) => {
+    user = user.toJSON()
     delete user.password
+    user.token = jwt.sign(user, secret, { expiresIn: '12h' })
     res.status(200).send({ user: user })
   })
 }

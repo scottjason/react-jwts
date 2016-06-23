@@ -13,7 +13,7 @@ export default function auth(state = initialState, action) {
     case LOGIN:
     case SIGNUP:
       state.user = typeof action.data.user === 'object' ? action.data.user : undefined
-      state.message = typeof action.data.message === 'string' ? action.data.message : undefined
+      state.errMessage = typeof action.data.message === 'string' ? action.data.message : undefined
       return state
       break
     default:

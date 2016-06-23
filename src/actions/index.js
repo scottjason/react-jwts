@@ -1,7 +1,7 @@
 import { TOGGLE_AUTH } from '../constants/actionTypes'
 import { SIGNUP } from '../constants/actionTypes'
 import { LOGIN } from '../constants/actionTypes'
-
+import { browserHistory } from 'react-router'
 import request from 'browser-request'
 
 function toggle() {
@@ -33,7 +33,7 @@ export function onLogin(payload) {
     request({ method: 'POST', url: '/login', body: payload, json: true }, (err, res, body) => {
       dispatch(login(body))
       if (res.status === 200) {
-        console.log('login success, redirect')
+        browserHistory.push('/dashboard')
       }
     })
   }
@@ -44,7 +44,7 @@ export function onSignup(payload) {
     request({ method: 'POST', url: '/signup', body: payload, json: true }, (err, res, body) => {
       dispatch(signup(body))
       if (res.status === 200) {
-        console.log('signup success, redirect')
+        browserHistory.push('/dashboard')
       }
     })
   }

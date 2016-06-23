@@ -5,11 +5,11 @@ import styles from '../styles/landing.styl'
 export default class Landing extends React.Component {
   constructor(props, context) {
    super(props, context)
-   this.state = { isLoginView: true, email: '', password: '' }
+   this.state = { email: '', password: '' }
   }
   toggle() {
     this.props.actions.onToggle()
-    this.setState({ isLoginView: this.props.auth.isLoginView, email: '', password: '' })
+    this.setState({ email: '', password: '' })
     this.reset()
   }
   onChangeEmail(e) {
@@ -29,7 +29,7 @@ export default class Landing extends React.Component {
     return this.state.password.length > 3
   }
   onSubmit() {
-    this.state.isLoginView ? this.onLogin() : this.onSignup()
+    this.props.auth.isLoginView ? this.onLogin() : this.onSignup()
   }
   onLogin() {
     if (this.isValidEmail() && this.isValidPassword()) {
@@ -52,14 +52,15 @@ export default class Landing extends React.Component {
     }
   }  
   render() {
-    var btnCopy = this.state.isLoginView ? 'LOGIN' : 'SIGNUP'
-    var optCopy = this.state.isLoginView ? 'Need an account?' : 'Have an account?'
+    var btnCopy = this.props.auth.isLoginView ? 'LOGIN' : 'SIGNUP'
+    var optCopy = this.props.auth.isLoginView ? 'Need an account?' : 'Have an account?'
     return (
       <div className={styles.wrap}>
         <input id='email' type='text' placeholder='Email' onChange={this.onChangeEmail.bind(this)} />
         <input id='password' type='password' placeholder='Password' onChange={this.onChangePassword.bind(this)}/>
         <button onClick={this.onSubmit.bind(this)}>{btnCopy}</button>
         <p onClick={this.toggle.bind(this)}>{optCopy}</p>
+        <p>{this.props.auth.errMessage}</p>
       </div>
     )
   }

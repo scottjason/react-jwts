@@ -1,20 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Landing from '../components/Landing'
+import Navbar from '../components/Navbar'
 import styles from '../main.styl'
 
 import * as actions from '../actions'
 
-export default class App extends React.Component {
+export default class Dashboard extends React.Component {
   constructor(props, context) {
    super(props, context)
   }
   render() {
     const { actions, auth } = this.props
     return (
-      <div className={styles.app}>
-        <Landing actions={actions} auth={auth} />
+      <div className={styles.wrap}>
+        <Navbar actions={actions} auth={auth} />
       </div>
     )
   }
@@ -35,4 +35,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(Dashboard)

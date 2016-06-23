@@ -13,6 +13,7 @@ copy and past the below into the `env.js` file and replace the mongo uri with yo
 ```javascript
 var env = {}
 env.mongoUri = 'your-mongo-uri'
+env.jwtSecret = 'your-jwt-secret'
 module.exports = env
 ```
 
