@@ -10,16 +10,16 @@ function toggle() {
   }
 }
 
-function signup(data) {
+function login(data) {
   return {
-    type: SIGNUP,
+    type: LOGIN,
     data: data
   }
 }
 
-function login(data) {
+function signup(data) {
   return {
-    type: LOGIN,
+    type: SIGNUP,
     data: data
   }
 }
@@ -28,18 +28,24 @@ export function onToggle() {
   return dispatch => dispatch(toggle())
 }
 
-export function onSignup(payload) {
-  return dispatch => {
-    request({ method: 'POST', url: '/signup', body: payload, json: true }, (err, res, body) => {
-      dispatch(signup(body))
-    })
-  }
-}
-
 export function onLogin(payload) {
   return dispatch => {
     request({ method: 'POST', url: '/login', body: payload, json: true }, (err, res, body) => {
       dispatch(login(body))
+      if (res.status === 200) {
+        console.log('login success, redirect')
+      }
+    })
+  }
+}
+
+export function onSignup(payload) {
+  return dispatch => {
+    request({ method: 'POST', url: '/signup', body: payload, json: true }, (err, res, body) => {
+      dispatch(signup(body))
+      if (res.status === 200) {
+        console.log('signup success, redirect')
+      }
     })
   }
 }

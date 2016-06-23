@@ -8,14 +8,10 @@ export default function auth(state = initialState, action) {
   switch (action.type) {
     case TOGGLE_AUTH:
       state.isLoginView = !state.isLoginView
-      return state
-      break
     case LOGIN:
     case SIGNUP:
-      state.isAuthenticated = typeof action.data.user === 'object'
-      state.user = state.isAuthenticated ? action.data.user : undefined
-      return state
-      break
+      state.user = typeof action.data.user === 'object' ? action.data.user : undefined
+      state.message = typeof action.data.message === 'string' ? action.data.message : undefined
     default:
       return state
   }

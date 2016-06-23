@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import isEmail from 'validator/lib/isEmail'
-import styles from '../styles/login.styl'
+import styles from '../styles/landing.styl'
 
 export default class Landing extends React.Component {
   constructor(props, context) {
