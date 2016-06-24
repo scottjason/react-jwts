@@ -33,7 +33,8 @@ export function onLogin(payload) {
     request({ method: 'POST', url: '/login', body: payload, json: true }, (err, res, body) => {
       dispatch(login(body))
       if (res.status === 200) {
-        browserHistory.push('/dashboard')
+        var path = '/dashboard/' + body.user.token
+        browserHistory.push(path)
       }
     })
   }
@@ -44,7 +45,8 @@ export function onSignup(payload) {
     request({ method: 'POST', url: '/signup', body: payload, json: true }, (err, res, body) => {
       dispatch(signup(body))
       if (res.status === 200) {
-        browserHistory.push('/dashboard')
+        var path = '/dashboard/' + body.user.token
+        browserHistory.push(path)
       }
     })
   }

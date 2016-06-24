@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 import isEmail from 'validator/lib/isEmail'
 import styles from '../styles/landing.styl'
 

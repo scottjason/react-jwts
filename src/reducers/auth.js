@@ -13,6 +13,7 @@ export default function auth(state = initialState, action) {
     case LOGIN:
     case SIGNUP:
       state.user = typeof action.data.user === 'object' ? action.data.user : undefined
+      state.expiresAt = typeof action.data.user === 'object' ? Date.now() + 3.6e+6 /* in 24hrs */ : undefined
       state.errMessage = typeof action.data.message === 'string' ? action.data.message : undefined
       return state
       break

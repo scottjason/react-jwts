@@ -9,7 +9,6 @@ import Landing from './containers/Landing.js'
 import Dashboard from './containers/Dashboard.js'
 
 const store = configStore()
-
 const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
@@ -17,7 +16,7 @@ ReactDOM.render(
     <div>
       <Router history={history}>
         <Route path='/' component={Landing}></Route>
-        <Route path='/dashboard' component={Dashboard}></Route>
+        <Route path='/dashboard/:token' component={Dashboard}></Route>
       </Router>
     </div>
   </Provider>,  

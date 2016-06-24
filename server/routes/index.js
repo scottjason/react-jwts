@@ -1,17 +1,38 @@
 const User = require('../models/user')
 const async = require('async')
 const bcrypt = require('bcrypt-nodejs')
+const path = require('path')
 const jwt = require('jsonwebtoken')
 const secret = process.env.jwtSecret || require('../../env').jwtSecret
-
-function comparePassword(entered, existing, cb) {
-  bcrypt.compare(entered, existing, (err, isMatch) => { cb(err, isMatch) })
-}
+const middleware = require('../app').middleware
+const isDev = require('../app').isDev
 
 module.exports = (app) => {
   app.post('/login', login)
   app.post('/signup', signup)
+  app.get('/dashboard/:token', dashboard)
   app.get('*', (req, res) => res.redirect('/'))
+}
+
+function isAuthenticated(token, cb) {
+  jwt.verify(token, secret, (err, decoded) => cb(err))
+}
+
+function comparePassword(entered, existing, cb) {
+  bcrypt.compare(entered, existing, (err, isMatch) => cb(err, isMatch))
+}
+
+function dashboard(req, res, next) {
+  isAuthenticated(req.params.token, (err, decoded) => {
+    if (err && err.message === 'invalid token') return res.redirect('/')
+    if (err) return next(err)
+    if (isDev) {
+      res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../../dist/index.html')))
+      res.end()
+    } else {
+      res.sendFile(path.join(__dirname, '../../dist/index.html'))
+    }
+  })
 }
 
 function login(req, res, next) {
@@ -33,7 +54,7 @@ function login(req, res, next) {
   ], (err, user) => {
     user = user.toJSON()
     delete user.password
-    user.token = jwt.sign(user, secret, { expiresIn: '12h' })
+    user.token = jwt.sign(user, secret, { expiresIn: '24h' })
     res.status(200).send({ user: user })
   })
 }
@@ -53,7 +74,7 @@ function signup(req, res, next) {
   ], (err, user) => {
     user = user.toJSON()
     delete user.password
-    user.token = jwt.sign(user, secret, { expiresIn: '12h' })
+    user.token = jwt.sign(user, secret, { expiresIn: '24h' })
     res.status(200).send({ user: user })
   })
 }
