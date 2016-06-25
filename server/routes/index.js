@@ -24,8 +24,7 @@ function comparePassword(entered, existing, cb) {
 
 function dashboard(req, res, next) {
   isAuthenticated(req.params.token, (err, decoded) => {
-    if (err && err.message === 'invalid token') return res.redirect('/')
-    if (err) return next(err)
+    if (err) return res.redirect('/')
     if (isDev) {
       res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../../dist/index.html')))
       res.end()

@@ -1,5 +1,7 @@
 import React from 'react'
 import styles from '../styles/dashboard.styl'
+import PanelLeft from './PanelLeft'
+import PanelRight from './PanelRight'
 
 export default class Content extends React.Component {
   constructor(props, context) {
@@ -7,7 +9,11 @@ export default class Content extends React.Component {
   }
   render() {
     return (
-      <div className={styles.centerWrap}></div>
+      <div className={styles.contentWrap}>
+        <PanelLeft />
+          <div className={styles.innerWrap}></div>
+        <PanelRight />
+      </div>
     )
   }
 }

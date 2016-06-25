@@ -1,20 +1,44 @@
+@import 'vars.styl'
+
 nav
   position absolute
   top 0
   left 0
   display flex
-  flex-direction row
-  align-items space-between
+  flex-direction row-reverse
+  align-items center
   height 60px
+  padding 0 40px
   width 100%
-  background-color red
-.centerWrap
+  background-color darken($dark-grey, 20%)
+  .logout
+    display flex
+    justify-content center
+    align-items center
+    width auto
+    height auto
+    cursor pointer
+    color white
+    font-size 13px
+    letter-spacing 0
+    transition all .2s ease-out
+    &:hover
+      letter-spacing 1px
+      color $neon-green
+.contentWrap
   position relative
   display flex
   flex-direction row
+  justify-content space-between
   width 100%
   height calc(100% - 120px)
-  background-color green
+  .panelLeft, .panelRight
+    width 260px
+    height 100%
+    background-color darken($dark-grey, 20%)
+  .innerWrap
+    width 100%
+    height 100%
 footer
   position absolute
   bottom 0
@@ -24,4 +48,4 @@ footer
   align-items space-between
   height 60px
   width 100%
-  background-color red
+  background-color darken($dark-grey, 20%)

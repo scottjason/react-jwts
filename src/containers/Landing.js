@@ -6,7 +6,7 @@ import styles from '../main.styl'
 
 import * as actions from '../actions'
 
-export default class App extends React.Component {
+export default class Landing extends React.Component {
   constructor(props, context) {
    super(props, context)
   }
@@ -35,4 +35,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(Landing)

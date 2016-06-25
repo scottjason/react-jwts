@@ -18,19 +18,22 @@ export default class Dashboard extends React.Component {
     let arr = JSON.parse(localStorage.getItem('auth.data'))
     let isValid = Array.isArray(arr)
 
-    // if refresh and there's no auth.data key
-    // or if it does exist but its empty, set and redirect
+    /* 
+      if refresh and there's no auth.data key
+      or if it does exist but its empty, set and redirect
+    */
     if (isRefresh && !isValid || isRefresh && !arr.length) {
       this.setAndRedirect()
     }
-
-    // if refresh, and arr.length, iterate over the keys,
-    // if there is a match to the token in the url params
-    // check if its been expired
-    // if expired, remove this key from storage and redirect
-    // if not expired, re-set user obj on this.props
-    // if no token was found, redirect
-    if (isRefresh) {
+    
+    /*
+      if refresh and the arr is not empty, iterate over the elems
+      if there is a match to the token in the url params, check if its been expired
+      if expired, remove this reset storage and redirect
+      if not expired, set user obj on this.props
+      if no match was found, isBadToken will remain true
+    */
+    else if (isRefresh) {
       let token = this.props.params.token
       var isBadToken = true
       arr.forEach((obj, i) => {
@@ -45,7 +48,6 @@ export default class Dashboard extends React.Component {
           }
         }
       })
-
     if (isBadToken) {
       this.setAndRedirect()
       }
@@ -62,7 +64,7 @@ export default class Dashboard extends React.Component {
   }
   setAndRedirect() {
     localStorage.setItem('auth.data', JSON.stringify([]))
-    window.location.href = 'http://localhost:3000'
+    window.location.replace('/')
   }
   render() {
     const { actions, auth } = this.props
