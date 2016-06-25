@@ -12,20 +12,23 @@ export default class Dashboard extends React.Component {
   constructor(props, context) {
    super(props, context)
   }
+  componentDidMount() {
+    this.isAuthenticated()
+  }
   isAuthenticated() {
 
     let isRefresh = !this.props.auth.expiresAt
     let arr = JSON.parse(localStorage.getItem('auth.data'))
     let isValid = Array.isArray(arr)
 
-    /* 
+    /*
       if refresh and there's no auth.data key
       or if it does exist but its empty, set and redirect
     */
     if (isRefresh && !isValid || isRefresh && !arr.length) {
       this.setAndRedirect()
     }
-    
+
     /*
       if refresh and the arr is not empty, iterate over the elems
       if there is a match to the token in the url params, check if its been expired
@@ -68,7 +71,6 @@ export default class Dashboard extends React.Component {
   }
   render() {
     const { actions, auth } = this.props
-    this.isAuthenticated()
     return (
       <div className={styles.wrap}>
         <Navbar actions={actions} auth={auth} />
