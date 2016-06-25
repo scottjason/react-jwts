@@ -13,19 +13,18 @@ export default class Dashboard extends React.Component {
    super(props, context)
   }
   isAuthenticated() {
-    
+
     let isRefresh = !this.props.auth.expiresAt
     let arr = JSON.parse(localStorage.getItem('auth.data'))
     let isValid = Array.isArray(arr)
-    
-    // if refresh and there's no auth.data key 
+
+    // if refresh and there's no auth.data key
     // or if it does exist but its empty, set and redirect
     if (isRefresh && !isValid || isRefresh && !arr.length) {
       this.setAndRedirect()
     }
 
-
-    // if refresh, and arr.length, iterate over the keys, 
+    // if refresh, and arr.length, iterate over the keys,
     // if there is a match to the token in the url params
     // check if its been expired
     // if expired, remove this key from storage and redirect
@@ -40,22 +39,21 @@ export default class Dashboard extends React.Component {
           isBadToken = false
           var isExpired = Date.now() >= obj.expiresAt
           if (isExpired) {
-            localStorage.remoteItem('auth.data')
-            window.location.href = 'http://localhost:3000'
+            this.setAndRedirect()
           } else {
             this.props.auth.user = obj.user
           }
         }
-      })      
-    
+      })
+
     if (isBadToken) {
       this.setAndRedirect()
-      }    
+      }
     } else {
       // if initial login or signup (not refresh)
       // set the token and expiredAt props
       let obj = {}
-      let arr = []      
+      let arr = []
       obj.user = this.props.auth.user
       obj.expiresAt = this.props.auth.expiresAt
       arr.push(obj)
@@ -64,6 +62,7 @@ export default class Dashboard extends React.Component {
   }
   setAndRedirect() {
     localStorage.setItem('auth.data', JSON.stringify([]))
+    window.location.href = 'http://localhost:3000'
   }
   render() {
     const { actions, auth } = this.props

@@ -1,7 +1,7 @@
 {
   "name": "react-redux-authentication",
   "version": "0.0.0",
-  "description": "React, Redux boilerplate with JWT auth and flexbox holy grail layout",
+  "description": "React, Redux boilerplate with JWT auth",
   "main": "index.js",
   "author": "Scott Jason <scottleejason@gmail.com> (http://scottleejason.com)",
   "license": "ISC",
